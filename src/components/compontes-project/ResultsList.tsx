@@ -30,28 +30,19 @@ const ResultsList: React.FC = () => {
     const [data, setData] = useState<AtosData[] | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [currentPage] = useState<number>(1);
-    
 
     useEffect(() => {
         if (query) {
-            fetchResults(1); // Nova busca sempre começa na página 1
+            fetchResults(); // Nova busca sempre que o query mudar
         }
     }, [query]);
 
-    useEffect(() => {
-        if (query) {
-            fetchResults(currentPage); // Busca resultados quando a página atual muda
-        }
-    }, [currentPage]);
-
-    const fetchResults = async (pagina: number) => {
+    const fetchResults = async () => {
         setLoading(true);
         setError(null);
 
         const queryString = new URLSearchParams({
             conteudo: query.conteudo,
-
         }).toString();
 
         try {
@@ -65,9 +56,6 @@ const ResultsList: React.FC = () => {
             setLoading(false);
         }
     };
-
-
-
 
     if (loading) return <div>Carregando...</div>;
     if (error) return <div>{error}</div>;
@@ -109,7 +97,6 @@ const ResultsList: React.FC = () => {
                     </CardFooter>
                 </Card>
             ))}
-
         </div>
     );
 };

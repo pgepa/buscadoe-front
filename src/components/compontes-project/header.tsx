@@ -22,7 +22,7 @@ export function Header() {
 
                     <span className="font-semibold text-indigo-50 flex items-center gap-4">
                         <Search className="h-5 w-5" />
-                        LOCALIZA DOE
+                        BUSCA DOE
                     </span>
                     <Separator orientation="vertical" className="h-6 hidden lg:block" />
                 </div>

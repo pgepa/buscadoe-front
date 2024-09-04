@@ -25,10 +25,10 @@ const combinedRouter = createHashRouter([
 ]);
 
 export const App  = () => (
-    <div className="min-h-screen bg-indigo-200 ">
+    <div className="min-h-screen bg-indigo-100 ">
 
 <HelmetProvider>
-      <Helmet titleTemplate="Localiza | %s" />
+      <Helmet titleTemplate="Busca | %s" />
       <Toaster richColors />
       <ToastContainer />
       <QueryClientProvider client={queryClient}>
