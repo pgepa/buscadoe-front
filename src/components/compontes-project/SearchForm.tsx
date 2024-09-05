@@ -9,12 +9,11 @@ import { Search, X } from 'lucide-react';
 
 const SearchForm: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ conteudo: string; descritores: string; numero: string; ano: string; tipo: string }>({
-        conteudo: query.conteudo,
-        descritores: query.descritores,
-        numero: query.numero,
-        ano: query.ano,
-        tipo: query.tipo,
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string }>({
+        trecho: query.trecho,
+        termo: query.termo,
+        nome_arquivo: query.nome_arquivo,
+        link_arquivo: query.nome_arquivo,
     });
     const navigate = useNavigate();
 
@@ -27,20 +26,18 @@ const SearchForm: React.FC = () => {
     const handleClearFilters = () => {
         // Reseta o estado local para os valores iniciais
         setLocalQuery({
-            conteudo: '',
-            descritores: '',
-            numero: '',
-            ano: '',
-            tipo: '',
+            trecho: '',
+            termo: '',
+            nome_arquivo: '',
+            link_arquivo: '',
         });
 
         // Também reseta o contexto se necessário
         setQuery({
-            conteudo: '',
-            descritores: '',
-            numero: '',
-            ano: '',
-            tipo: '',
+            trecho: '',
+            termo: '',
+            nome_arquivo: '',
+            link_arquivo: '',
         });
     };
 
@@ -58,8 +55,8 @@ const SearchForm: React.FC = () => {
 
                     <Input
                         placeholder="Informe o conteúdo a ser buscado"
-                        value={localQuery.conteudo}
-                        onChange={(e) => setLocalQuery({ ...localQuery, conteudo: e.target.value })}
+                        value={localQuery.termo}
+                        onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
                         className="w-full sm:col-span-2 md:col-span-4"
                     />
 

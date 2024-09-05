@@ -8,12 +8,12 @@ import { Search, X } from 'lucide-react';
 
 const SearchFilter: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ conteudo: string; descritores: string; numero: string; ano: string; tipo: string }>({
-        conteudo: query.conteudo || '',
-        descritores: query.descritores || '',
-        numero: query.numero || '',
-        ano: query.ano || '',
-        tipo: query.tipo || '',
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; }>({
+        trecho: query.trecho || '',
+        nome_arquivo: query.nome_arquivo || '',
+        link_arquivo: query.link_arquivo || '',
+        termo: query.termo || '',
+
     });
     const navigate = useNavigate();
 
@@ -26,20 +26,18 @@ const SearchFilter: React.FC = () => {
     const handleClearFilters = () => {
         // Reseta o estado local para os valores iniciais
         setLocalQuery({
-            conteudo: '',
-            descritores: '',
-            numero: '',
-            ano: '',
-            tipo: '',
+            trecho: '',
+            nome_arquivo: '',
+            link_arquivo: '',
+            termo: '',
         });
 
         // Também reseta o contexto se necessário
         setQuery({
-            conteudo: '',
-            descritores: '',
-            numero: '',
-            ano: '',
-            tipo: '',
+            trecho: '',
+            nome_arquivo: '',
+            link_arquivo: '',
+            termo: '',
         });
     };
 
@@ -49,8 +47,8 @@ const SearchFilter: React.FC = () => {
             <span className="text-lg font-semibold">Pesquisar:</span>
             <Input
                 placeholder="Informe o conteúdo a ser buscado"
-                value={localQuery.conteudo}
-                onChange={(e) => setLocalQuery({ ...localQuery, conteudo: e.target.value })}
+                value={localQuery.termo}
+                onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
                className="w-full sm:w-[500px]"
             />
                 

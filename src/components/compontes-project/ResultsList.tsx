@@ -1,28 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { Eye, SquareArrowOutUpRight } from 'lucide-react';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+
 
 import { api } from '../../lib/axios';
 
 interface AtosData {
-    data_alteracao: string;
-    data_ato: string;
-    data_criacao: string;
-    data_publicacao: string;
-    descritores: string;
-    ementa: string;
-    fonte: string;
-    id: string;
-    numero: number;
-    numero_formatado: string;
-    observacao: string;
-    relevancia: number;
-    situacao: string;
-    texto_compilado: string;
-    tipo_id: string;
-    titulo: string;
+    id: number;
+    trecho: string;
+    nome_arquivo: string;
+    link_arquivo: string;
+    termo: string;
+    
 }
 
 const ResultsList: React.FC = () => {
@@ -42,11 +31,11 @@ const ResultsList: React.FC = () => {
         setError(null);
 
         const queryString = new URLSearchParams({
-            conteudo: query.conteudo,
+            termo: query.termo,
         }).toString();
 
         try {
-            const response = await api.get(`/atos/busca?${queryString}`);
+            const response = await api.get(`/buscar?/${queryString}`);
             const fetchedData = response.data;
             setData(fetchedData);
         } catch (err) {
@@ -64,36 +53,20 @@ const ResultsList: React.FC = () => {
     return (
         <div className='flex flex-col gap-4'>
             <h2 className='text-2xl font-bold tracking-tight text-justify mt-4 text-blue-700'>Resultados para a busca:</h2>
-            {data.map((ato) => (
-                <Card key={ato.id} className='shadow-md shadow-blue-500/40'>
+            {data.map((doe) => (
+                <Card key={doe.id} className='shadow-md shadow-blue-500/40'>
                     <CardHeader className="flex-items-center flex-row justify-between space-y-0 pb-4">
                         <div className="space-y-1">
                             <CardTitle className="text-base font-medium -tracking-tight text-blue-700 dark:text-blue-300">
-                                {ato.titulo}
+                                {doe.nome_arquivo}
                             </CardTitle>
-                            <CardDescription>{ato.situacao}</CardDescription>
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-1">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6">{ato.ementa}</p>
+                        <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.termo}</p>
                     </CardContent>
                     <CardFooter className="flex justify-start gap-2">
-                        <Button
-                            variant="outline"
-                            className="gap-2 border-amber-500 font-normal text-amber-500 hover:text-amber-600 dark:border-amber-300 dark:text-amber-300"
-                            onClick={() => window.open(`/#/ficha/${ato.id}`, '_blank')}
-                        >
-                            <Eye className="h-3 w-3" />
-                            Ficha
-                        </Button>
-                        <Button
-                            variant="outline"
-                            className="gap-2 border-amber-500 font-normal text-amber-500 hover:text-amber-600 dark:border-amber-300 dark:text-amber-300"
-                            onClick={() => window.open(`/#/texto-integral/${ato.id}`, '_blank')}
-                        >
-                            <SquareArrowOutUpRight className="h-3 w-3" />
-                            Texto Integral
-                        </Button>
+                       <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.link_arquivo}</p>
                     </CardFooter>
                 </Card>
             ))}
