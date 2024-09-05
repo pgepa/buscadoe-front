@@ -35,7 +35,7 @@ const ResultsList: React.FC = () => {
         }).toString();
 
         try {
-            const response = await api.get(`/buscar?/${queryString}`);
+            const response = await api.get(`/buscar?${queryString}`);
             const fetchedData = response.data;
             setData(fetchedData);
         } catch (err) {
