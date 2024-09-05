@@ -11,7 +11,7 @@ interface AtosData {
     nome_arquivo: string;
     link_arquivo: string;
     termo: string;
-    
+
 }
 
 const ResultsList: React.FC = () => {
@@ -63,10 +63,17 @@ const ResultsList: React.FC = () => {
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-1">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.termo}</p>
+                        <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.trecho}</p>
                     </CardContent>
                     <CardFooter className="flex justify-start gap-2">
-                       <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.link_arquivo}</p>
+                        <a
+                            href={`http://10.96.20.15:5000${doe.link_arquivo}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="leading-7 [&:not(:first-child)]:mt-6 text-blue-600 hover:underline"
+                        >
+                            Abrir documento
+                        </a>
                     </CardFooter>
                 </Card>
             ))}
