@@ -8,11 +8,12 @@ import { Search, X } from 'lucide-react';
 
 const SearchFilter: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; }>({
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; }>({
         trecho: query.trecho || '',
         nome_arquivo: query.nome_arquivo || '',
         link_arquivo: query.link_arquivo || '',
         termo: query.termo || '',
+        ano: query.ano || '',
 
     });
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ const SearchFilter: React.FC = () => {
             nome_arquivo: '',
             link_arquivo: '',
             termo: '',
+            ano: '',
         });
 
         // Também reseta o contexto se necessário
@@ -38,6 +40,7 @@ const SearchFilter: React.FC = () => {
             nome_arquivo: '',
             link_arquivo: '',
             termo: '',
+            ano: '',
         });
     };
 
@@ -50,6 +53,12 @@ const SearchFilter: React.FC = () => {
                 value={localQuery.termo}
                 onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
                className="w-full sm:w-[500px]"
+            />
+            <Input
+                placeholder="Ano"
+                value={localQuery.ano}
+                onChange={(e) => setLocalQuery({ ...localQuery, ano: e.target.value })}
+                className="w-full sm:w-auto"
             />
                 
 

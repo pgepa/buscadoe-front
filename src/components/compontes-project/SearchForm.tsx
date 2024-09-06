@@ -9,9 +9,10 @@ import { Search, X } from 'lucide-react';
 
 const SearchForm: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string }>({
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; }>({
         trecho: query.trecho,
         termo: query.termo,
+        ano: query.ano,
         nome_arquivo: query.nome_arquivo,
         link_arquivo: query.nome_arquivo,
     });
@@ -28,6 +29,7 @@ const SearchForm: React.FC = () => {
         setLocalQuery({
             trecho: '',
             termo: '',
+            ano: '',
             nome_arquivo: '',
             link_arquivo: '',
         });
@@ -36,6 +38,7 @@ const SearchForm: React.FC = () => {
         setQuery({
             trecho: '',
             termo: '',
+            ano:'',
             nome_arquivo: '',
             link_arquivo: '',
         });
@@ -57,7 +60,13 @@ const SearchForm: React.FC = () => {
                         placeholder="Informe o conteúdo a ser buscado"
                         value={localQuery.termo}
                         onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
-                        className="w-full sm:col-span-2 md:col-span-4"
+                        className="w-full sm:col-span-2 md:col-span-3"
+                    />
+                    <Input
+                        placeholder="Ano"
+                        value={localQuery.ano}
+                        onChange={(e) => setLocalQuery({ ...localQuery, ano: e.target.value })}
+                        className="w-full"
                     />
 
                 </div>

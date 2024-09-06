@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import { AiFillFilePdf } from 'react-icons/ai';
+
 
 
 import { api } from '../../lib/axios';
@@ -11,6 +13,7 @@ interface AtosData {
     nome_arquivo: string;
     link_arquivo: string;
     termo: string;
+    ano: string;
 
 }
 
@@ -32,6 +35,7 @@ const ResultsList: React.FC = () => {
 
         const queryString = new URLSearchParams({
             termo: query.termo,
+            ano: query.ano,
         }).toString();
 
         try {
@@ -39,7 +43,7 @@ const ResultsList: React.FC = () => {
             const fetchedData = response.data;
             setData(fetchedData);
         } catch (err) {
-            setError('Erro ao buscar dados');
+            setError('Informe um termo a ser pesquisado.');
             console.error('Erro ao buscar dados:', err);
         } finally {
             setLoading(false);
@@ -70,8 +74,9 @@ const ResultsList: React.FC = () => {
                             href={`http://10.96.20.15:5000${doe.link_arquivo}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="leading-7 [&:not(:first-child)]:mt-6 text-blue-600 hover:underline"
+                            className=" flex justifify-start gap-2 items-center leading-7 [&:not(:first-child)]:mt-6 text-blue-600 hover:underline"
                         >
+                            <AiFillFilePdf className="text-red-600" />
                             Abrir documento
                         </a>
                     </CardFooter>
