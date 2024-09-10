@@ -34,15 +34,11 @@ const ResultsList: React.FC = () => {
 
     useEffect(() => {
         if (query) {
-            fetchResults(1); // Start search from page 1 whenever query changes
+            fetchResults(page); // Start search from page 1 whenever query changes
         }
-    }, [query]);
+    }, [query, page]);
 
-    useEffect(() => {
-        if (query) {
-            fetchResults(page); // Fetch results when page changes
-        }
-    }, [page]);
+    
 
     const fetchResults = async (pagina: number) => {
         setLoading(true);
@@ -61,7 +57,9 @@ const ResultsList: React.FC = () => {
             const response = await api.get(`/buscar?${queryString}`);
             const fetchedData = response.data.resultados; // Adjust based on the API response
             setData(fetchedData);
-            setTotalPages(Math.ceil(response.data.total / limit)); // Total pages based on total results
+
+            const totalResults = response.data.total;
+            setTotalPages(Math.ceil(totalResults / limit)); // Total pages based on total results
         } catch (err) {
             setError('Erro ao buscar dados. Verifique os parâmetros de busca.');
             console.error('Erro ao buscar dados:', err);
@@ -131,7 +129,7 @@ const ResultsList: React.FC = () => {
                 </Card>
             ))}
 
-            <Pagination className=" bottom-0  dark:bg-transparent py-2">
+            <Pagination className=" bottom-0  dark:bg-transparent py-2 cursor-pointer">
                 <PaginationContent>
                     {page > 1 && (
                         <PaginationPrevious size="sm" onClick={() => handlePageChange(page - 1)}>
