@@ -39,7 +39,7 @@ const ResultsList: React.FC = () => {
         }
     }, [query, page]);
 
-    
+
 
     const fetchResults = async (pagina: number) => {
         setLoading(true);
@@ -104,7 +104,7 @@ const ResultsList: React.FC = () => {
             </div>
         );
     }
-    
+
     if (error) return <div>{error}</div>;
     if (!data || data.length === 0) return <div className='text-2xl font-bold tracking-tight text-justify mt-4 text-orange-500'>Não foi encontrado nenhum resultado contendo todos os termos de pesquisa.</div>;
 
