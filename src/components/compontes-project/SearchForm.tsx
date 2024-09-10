@@ -9,12 +9,14 @@ import { Search, X } from 'lucide-react';
 
 const SearchForm: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; }>({
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; data_inicio: string; data_fim: string; }>({
         trecho: query.trecho,
         termo: query.termo,
         ano: query.ano,
         nome_arquivo: query.nome_arquivo,
-        link_arquivo: query.nome_arquivo,
+        link_arquivo: query.link_arquivo,
+        data_inicio: query.data_inicio,
+        data_fim: query.data_fim,
     });
     const navigate = useNavigate();
 
@@ -32,6 +34,8 @@ const SearchForm: React.FC = () => {
             ano: '',
             nome_arquivo: '',
             link_arquivo: '',
+            data_inicio: '',
+            data_fim: '',
         });
 
         // Também reseta o contexto se necessário
@@ -41,6 +45,8 @@ const SearchForm: React.FC = () => {
             ano:'',
             nome_arquivo: '',
             link_arquivo: '',
+            data_inicio: '',
+            data_fim: '',
         });
     };
 
@@ -66,6 +72,18 @@ const SearchForm: React.FC = () => {
                         placeholder="Ano"
                         value={localQuery.ano}
                         onChange={(e) => setLocalQuery({ ...localQuery, ano: e.target.value })}
+                        className="w-full"
+                    />
+                    <Input
+                        placeholder="Data Inicial - dd/mm/aaaa"
+                        value={localQuery.data_inicio}
+                        onChange={(e) => setLocalQuery({ ...localQuery, data_inicio: e.target.value })}
+                        className="w-full"
+                    />
+                    <Input
+                        placeholder="Data Fim - dd/mm/aaaa"
+                        value={localQuery.data_fim}
+                        onChange={(e) => setLocalQuery({ ...localQuery, data_fim: e.target.value })}
                         className="w-full"
                     />
 

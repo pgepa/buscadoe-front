@@ -19,6 +19,8 @@ interface AtosData {
     link_arquivo: string;
     termo: string;
     ano: string;
+    data_inicio: string;
+    data_fim: string;
 }
 
 const ResultsList: React.FC = () => {

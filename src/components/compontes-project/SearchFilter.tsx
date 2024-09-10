@@ -8,12 +8,14 @@ import { Search, X } from 'lucide-react';
 
 const SearchFilter: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
-    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; }>({
+    const [localQuery, setLocalQuery] = useState<{ trecho: string; nome_arquivo: string; link_arquivo: string; termo: string; ano: string; data_inicio: string; data_fim: string; }>({
         trecho: query.trecho || '',
         nome_arquivo: query.nome_arquivo || '',
         link_arquivo: query.link_arquivo || '',
         termo: query.termo || '',
         ano: query.ano || '',
+        data_inicio: query.data_inicio || '',
+        data_fim: query.data_fim || '',
 
     });
     const navigate = useNavigate();
@@ -32,6 +34,8 @@ const SearchFilter: React.FC = () => {
             link_arquivo: '',
             termo: '',
             ano: '',
+            data_inicio: '',
+            data_fim: '',
         });
 
         // Também reseta o contexto se necessário
@@ -41,6 +45,8 @@ const SearchFilter: React.FC = () => {
             link_arquivo: '',
             termo: '',
             ano: '',
+            data_inicio: '',
+            data_fim: '',
         });
     };
 
@@ -52,7 +58,7 @@ const SearchFilter: React.FC = () => {
                 placeholder="Informe o conteúdo a ser buscado"
                 value={localQuery.termo}
                 onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
-               className="w-full sm:w-[500px]"
+                className="w-full sm:w-[500px]"
             />
             <Input
                 placeholder="Ano"
@@ -60,9 +66,21 @@ const SearchFilter: React.FC = () => {
                 onChange={(e) => setLocalQuery({ ...localQuery, ano: e.target.value })}
                 className="w-full sm:w-auto"
             />
-                
+            <Input
+                placeholder="Data Inicial - dd/mm/aaaa"
+                value={localQuery.data_inicio}
+                onChange={(e) => setLocalQuery({ ...localQuery, data_inicio: e.target.value })}
+                className="w-full sm:w-auto"
+            />
+            <Input
+                placeholder="Data fim - dd/mm/aaaa"
+                value={localQuery.data_fim}
+                onChange={(e) => setLocalQuery({ ...localQuery, data_fim: e.target.value })}
+                className="w-full sm:w-auto"
+            />
 
-            <Button onClick={handleSearch} type="submit"  size="default" variant="default" className="w-full sm:w-auto">
+
+            <Button onClick={handleSearch} type="submit" size="default" variant="default" className="w-full sm:w-auto">
                 <Search className="h-4 w-4 mr-2" />
                 Pesquisar
             </Button>
