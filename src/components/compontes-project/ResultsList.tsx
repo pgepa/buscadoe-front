@@ -11,6 +11,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "../../components/ui/pagination";
+import GridLoader from 'react-spinners/GridLoader';
 
 interface AtosData {
     id: number;
@@ -99,7 +100,7 @@ const ResultsList: React.FC = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <div className='h-16 w-16 border-4 border-l-violet-200 border-r-violet-200 border-b-violet-200 border-t-violet-500 animate-spin ease-linear rounded-full'></div>
+                <GridLoader size={16} color="#9322d4" />
             </div>
         );
     }
