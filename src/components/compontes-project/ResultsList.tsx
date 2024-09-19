@@ -12,6 +12,7 @@ import {
     PaginationPrevious,
 } from "../../components/ui/pagination";
 import GridLoader from 'react-spinners/GridLoader';
+import { SearchX } from 'lucide-react';
 
 interface AtosData {
     id: number;
@@ -106,7 +107,13 @@ const ResultsList: React.FC = () => {
     }
 
     if (error) return <div>{error}</div>;
-    if (!data || data.length === 0) return <div className='text-2xl font-bold tracking-tight text-justify mt-4 text-orange-500'>Não foi encontrado nenhum resultado contendo todos os termos de pesquisa.</div>;
+    if (!data || data.length === 0) return <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8  text-muted-foreground'>
+        <p>Não foi encontrado nenhum Ato Normativo para o(s) filtro(s) selecionado(s).</p> 
+        <p>Tente novamente como outros parâmetros.</p>
+        
+        <SearchX className="h-12 w-12 mt-4"/>
+
+        </div>;
 
     return (
         <div className='flex flex-col gap-4'>
