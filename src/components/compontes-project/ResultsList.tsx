@@ -71,8 +71,8 @@ const ResultsList: React.FC = () => {
             setTotalPages(Math.ceil(totalResults / limit));
         } catch (err) {
             setError(
-                <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-red-600'>
-                    <p>Erro ao buscar dados. Tente novamente.</p>
+                <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-muted-foreground'>
+                    <p>Favor informe o conteúdo a ser pesquisado.</p>
                     <SearchX className="h-12 w-12 mt-4" />
                 </div>
             );
