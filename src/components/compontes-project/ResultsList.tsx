@@ -108,7 +108,7 @@ const ResultsList: React.FC = () => {
 
     if (error) return <div>{error}</div>;
     if (!data || data.length === 0) return <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8  text-muted-foreground'>
-        <p>Não foi encontrado nenhum Ato Normativo para o(s) filtro(s) selecionado(s).</p> 
+        <p>Não foi encontrado nenhum diário para o(s) filtro(s) selecionado(s).</p> 
         <p>Tente novamente como outros parâmetros.</p>
         
         <SearchX className="h-12 w-12 mt-4"/>
