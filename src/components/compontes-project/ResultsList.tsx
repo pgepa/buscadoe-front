@@ -28,19 +28,26 @@ interface AtosData {
 const ResultsList: React.FC = () => {
     const { query } = useContext(SearchContext)!;
     const [data, setData] = useState<AtosData[] | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<JSX.Element | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [page, setPage] = useState<number>(1);  // Current page
-    const [limit] = useState<number>(25);         // Results per page
-    const [totalPages, setTotalPages] = useState<number>(1); // Total pages
+    const [page, setPage] = useState<number>(1);
+    const [limit] = useState<number>(25);
+    const [totalPages, setTotalPages] = useState<number>(1);
 
     useEffect(() => {
         if (query) {
-            fetchResults(page); // Start search from page 1 whenever query changes
+            if (!query.termo && !query.ano && !query.data_inicio && !query.data_fim) {
+                setError(
+                    <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-muted-foreground'>
+                        <p>Favor informe o conteúdo a ser pesquisado.</p>
+                        <SearchX className="h-12 w-12 mt-4" />
+                    </div>
+                );
+            } else {
+                fetchResults(page);
+            }
         }
     }, [query, page]);
-
-
 
     const fetchResults = async (pagina: number) => {
         setLoading(true);
@@ -51,19 +58,24 @@ const ResultsList: React.FC = () => {
             ano: query.ano,
             data_inicio: query.data_inicio,
             data_fim: query.data_fim,
-            page: pagina.toString(),  // Current page
-            limit: limit.toString(), // Results limit
+            page: pagina.toString(),
+            limit: limit.toString(),
         }).toString();
 
         try {
             const response = await api.get(`/buscar?${queryString}`);
-            const fetchedData = response.data.resultados; // Adjust based on the API response
+            const fetchedData = response.data.resultados;
             setData(fetchedData);
 
             const totalResults = response.data.total;
-            setTotalPages(Math.ceil(totalResults / limit)); // Total pages based on total results
+            setTotalPages(Math.ceil(totalResults / limit));
         } catch (err) {
-            setError('Erro ao buscar dados. Verifique os parâmetros de busca.');
+            setError(
+                <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-red-600'>
+                    <p>Erro ao buscar dados. Tente novamente.</p>
+                    <SearchX className="h-12 w-12 mt-4" />
+                </div>
+            );
             console.error('Erro ao buscar dados:', err);
         } finally {
             setLoading(false);
@@ -87,7 +99,7 @@ const ResultsList: React.FC = () => {
                     <PaginationLink
                         size="sm"
                         onClick={() => handlePageChange(i)}
-                        className={i === page ? "active-class" : ""}
+                        className={i === page ? "bg-blue-500 text-white" : "text-blue-500"}
                     >
                         {i}
                     </PaginationLink>
@@ -107,13 +119,13 @@ const ResultsList: React.FC = () => {
     }
 
     if (error) return <div>{error}</div>;
-    if (!data || data.length === 0) return <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8  text-muted-foreground'>
-        <p>Não foi encontrado nenhum diário para o(s) filtro(s) selecionado(s).</p> 
-        <p>Tente novamente como outros parâmetros.</p>
-        
-        <SearchX className="h-12 w-12 mt-4"/>
-
-        </div>;
+    if (!data || data.length === 0) return (
+        <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-muted-foreground'>
+            <p>Não foi encontrado nenhum diário para o(s) filtro(s) selecionado(s).</p>
+            <p>Tente novamente com outros parâmetros.</p>
+            <SearchX className="h-12 w-12 mt-4" />
+        </div>
+    );
 
     return (
         <div className='flex flex-col gap-4'>
@@ -144,7 +156,7 @@ const ResultsList: React.FC = () => {
                 </Card>
             ))}
 
-            <Pagination className=" bottom-0  dark:bg-transparent py-2 cursor-pointer">
+            <Pagination className="bottom-0 dark:bg-transparent py-2 cursor-pointer">
                 <PaginationContent>
                     {page > 1 && (
                         <PaginationPrevious size="sm" onClick={() => handlePageChange(page - 1)}>
