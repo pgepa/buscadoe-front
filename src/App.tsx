@@ -14,7 +14,7 @@ import { createHashRouter } from "react-router-dom";
 
 // Definindo as novas rotas
 const newRoutes: RouteObject[] = [
-  { path: "/", element: <SearchPage /> },
+  { path: "/buscadoe", element: <SearchPage /> },
   { path: "/results", element: <ResultsPage /> },
 ];
 

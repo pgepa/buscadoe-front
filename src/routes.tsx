@@ -8,11 +8,11 @@ import { NotFound } from './pages/app/404';
 
 export const Router = createHashRouter([
   {
-    path: '/',
+    path: '/buscadoe',
     element: <AppLayout />,
     errorElement: <NotFound />,
     children: [
-      { path: '/', element: <SearchPage /> },
+      { path: '/buscadoe', element: <SearchPage /> },
       { path: '/results', element: <ResultsPage /> },
       
       
