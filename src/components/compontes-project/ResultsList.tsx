@@ -144,7 +144,7 @@ const ResultsList: React.FC = () => {
                     </CardContent>
                     <CardFooter className="flex justify-start gap-2">
                         <a
-                            href={`https://cloud.pge.pa.gov.br/buscadoe${doe.link_arquivo}`}
+                            href={`http://10.96.20.15:5000/pdfs${doe.link_arquivo}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex justify-start gap-2 items-center leading-7 text-blue-600 hover:underline"
