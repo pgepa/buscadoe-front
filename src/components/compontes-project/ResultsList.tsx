@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { AiFillFilePdf } from 'react-icons/ai';
+import { LuEye } from 'react-icons/lu';
 import { api } from '../../lib/axios';
 import {
     Pagination,
@@ -13,6 +13,7 @@ import {
 } from "../../components/ui/pagination";
 import GridLoader from 'react-spinners/GridLoader';
 import { SearchX } from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface AtosData {
     id: number;
@@ -143,15 +144,16 @@ const ResultsList: React.FC = () => {
                         <p className="leading-7 [&:not(:first-child)]:mt-6 text-slate-700">{doe.trecho}</p>
                     </CardContent>
                     <CardFooter className="flex justify-start gap-2">
-                        <a
-                            href={`http://10.96.20.15:5000${doe.link_arquivo}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex justify-start gap-2 items-center leading-7 text-blue-800/80 hover:underline"
-                        >
-                            <AiFillFilePdf className="text-red-600" />
-                            Visualizar DOE
-                        </a>
+                        <Button asChild size="sm" className="text-blue-800/80 hover:text-blue-800/90 bg-blue-50 hover:bg-blue-100 flex justify-start gap-2 items-center">
+                            <a
+                                href={`http://10.96.20.15:5000${doe.link_arquivo}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <LuEye />
+                                Visualizar DOE
+                            </a>
+                        </Button>
                     </CardFooter>
                 </Card>
             ))}
