@@ -25,7 +25,7 @@ const combinedRouter = createHashRouter([
 ]);
 
 export const App  = () => (
-    <div className="min-h-screen bg-indigo-100 ">
+    <div className="min-h-screen bg-blue-100 ">
 
 <HelmetProvider>
       <Helmet titleTemplate="Busca | %s" />

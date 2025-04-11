@@ -53,7 +53,7 @@ const SearchFilter: React.FC = () => {
     return (
         <form className="flex flex-col sm:flex-row items-center gap-2 flex-wrap">
 
-            <span className="text-lg font-semibold">Pesquisar:</span>
+            <span className="text-lg font-semibold text-blue-800/80">Pesquisar:</span>
             <Input
                 placeholder="Informe o conteúdo a ser buscado"
                 value={localQuery.termo}
@@ -67,20 +67,20 @@ const SearchFilter: React.FC = () => {
                 className="w-full sm:w-auto"
             />
             <Input
-                placeholder="Data Inicial - dd/mm/aaaa"
+                placeholder="dd/mm/aaaa"
                 value={localQuery.data_inicio}
                 onChange={(e) => setLocalQuery({ ...localQuery, data_inicio: e.target.value })}
                 className="w-full sm:w-auto"
             />
             <Input
-                placeholder="Data fim - dd/mm/aaaa"
+                placeholder="dd/mm/aaaa"
                 value={localQuery.data_fim}
                 onChange={(e) => setLocalQuery({ ...localQuery, data_fim: e.target.value })}
                 className="w-full sm:w-auto"
             />
 
 
-            <Button onClick={handleSearch} type="submit" size="default" variant="default" className="w-full sm:w-auto">
+            <Button onClick={handleSearch} type="submit" size="default" variant="default" className="w-full sm:w-auto bg-blue-800/80 hover:bg-blue-800/90 text-white flex items-center">
                 <Search className="h-4 w-4 mr-2" />
                 Pesquisar
             </Button>

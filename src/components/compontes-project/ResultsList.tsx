@@ -113,7 +113,7 @@ const ResultsList: React.FC = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <GridLoader size={16} color="#9322d4" />
+                <GridLoader size={16} color="#2870cf" />
             </div>
         );
     }
@@ -129,28 +129,28 @@ const ResultsList: React.FC = () => {
 
     return (
         <div className='flex flex-col gap-4'>
-            <h2 className='text-2xl font-bold tracking-tight text-justify mt-4 text-violet-700'>Resultados para a busca:</h2>
+            <h2 className='text-2xl font-bold tracking-tight text-justify mt-4 text-blue-800/80'>Resultados para a busca:</h2>
             {data.map((doe) => (
                 <Card key={doe.id} className='shadow-md shadow-blue-500/40'>
                     <CardHeader className="flex-items-center flex-row justify-between space-y-0 pb-4">
                         <div className="space-y-1">
-                            <CardTitle className="text-base font-medium -tracking-tight text-blue-700 dark:text-blue-300">
+                            <CardTitle className="text-base font-medium -tracking-tight text-blue-800/80 dark:text-blue-300">
                                 {doe.nome_arquivo}
                             </CardTitle>
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-1">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6">{doe.trecho}</p>
+                        <p className="leading-7 [&:not(:first-child)]:mt-6 text-slate-700">{doe.trecho}</p>
                     </CardContent>
                     <CardFooter className="flex justify-start gap-2">
                         <a
                             href={`http://10.96.20.15:5000${doe.link_arquivo}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex justify-start gap-2 items-center leading-7 text-blue-600 hover:underline"
+                            className="flex justify-start gap-2 items-center leading-7 text-blue-800/80 hover:underline"
                         >
                             <AiFillFilePdf className="text-red-600" />
-                            Abrir documento
+                            Visualizar DOE
                         </a>
                     </CardFooter>
                 </Card>

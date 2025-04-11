@@ -56,8 +56,8 @@ const SearchForm: React.FC = () => {
             <form className="flex flex-col gap-4 items-center p-4 sm:p-6 md:p-8 ">
 
                 <img className="w-24 h-24" src={logo} alt="Logo" />
-                <h1 className="text-2xl sm:text-3xl font-bold text-center mb-2 text-violet-800">Procuradoria-Geral do Estado do Pará</h1>
-                <h2 className="text-lg sm:text-xl tracking-tight text-violet-600">Sistema de Busca Avançada - DOE</h2>
+                <h1 className="text-2xl sm:text-3xl font-bold text-center mb-2 text-blue-800/90">Procuradoria-Geral do Estado do Pará</h1>
+                <h2 className="text-lg sm:text-xl tracking-tight text-slate-500">Sistema de Busca Avançada - DOE</h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
 
@@ -76,17 +76,17 @@ const SearchForm: React.FC = () => {
                     />
 
                     <div className="w-full sm:col-span-2 md:col-span-4">
-                        <h2 className="text-lg font-semibold mb-2 text-violet-600">Busca por período:</h2>
+                        <h2 className="text-lg font-semibold mb-2 text-blue-800/80">Busca por período:</h2>
                         <div className="flex flex-row gap-4">
 
                             <Input
-                                placeholder="Data Inicial (dd/mm/aaaa)"
+                                placeholder="dd/mm/aaaa"
                                 value={localQuery.data_inicio}
                                 onChange={(e) => setLocalQuery({ ...localQuery, data_inicio: e.target.value })}
                                 className="w-full"
                             />
                             <Input
-                                placeholder="Data Final (dd/mm/aaaa)"
+                                placeholder="dd/mm/aaaa"
                                 value={localQuery.data_fim}
                                 onChange={(e) => setLocalQuery({ ...localQuery, data_fim: e.target.value })}
                                 className="w-full"
@@ -101,7 +101,7 @@ const SearchForm: React.FC = () => {
 
                 <div className="flex flex-row gap-4 items-center mt-4">
 
-                    <Button onClick={handleSearch} type="submit" variant='default' size="lg">
+                    <Button onClick={handleSearch} type="submit" variant='default' size="lg" className="bg-blue-800/80 hover:bg-blue-800/90 text-white flex items-center">
                         <Search className="h-4 w-4 mr-2" />
                         Pesquisar
                     </Button>
