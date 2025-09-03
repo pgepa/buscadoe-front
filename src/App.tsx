@@ -28,7 +28,7 @@ export const App  = () => (
     <div className="min-h-screen bg-blue-100 ">
 
 <HelmetProvider>
-      <Helmet titleTemplate="Busca | %s" />
+      <Helmet titleTemplate="BuscaDOE | %s" />
       <Toaster richColors />
       <ToastContainer />
       <QueryClientProvider client={queryClient}>
