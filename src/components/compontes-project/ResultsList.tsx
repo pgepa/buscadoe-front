@@ -146,7 +146,7 @@ const ResultsList: React.FC = () => {
                     <CardFooter className="flex justify-start gap-2">
                         <Button asChild size="sm" className="text-blue-800/80 hover:text-blue-800/90 bg-blue-50 hover:bg-blue-100 flex justify-start gap-2 items-center">
                             <a
-                                href={`http://10.96.20.15:5000${doe.link_arquivo}`}
+                                href={`http://10.96.30.11:5000${doe.link_arquivo}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
