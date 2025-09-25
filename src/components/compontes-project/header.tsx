@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Home, Menu, Search } from "lucide-react";
+import { FileSearch, Home, Menu } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { NavLink } from "react-router-dom";
+
 
 export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export function Header() {
             <div className="flex h-16 items-center gap-6 justify-start px-6 bg-gradient-to-r from-blue-400 to-indigo-600 shadow-lg">
                 <div className="flex items-center gap-4">
                     <span className="font-semibold text-indigo-50 flex items-center gap-4">
-                        <Search className="h-5 w-5" />
+                        <FileSearch className="h-7 w-7" />
                         BUSCA DOE
                     </span>
                     <Separator orientation="vertical" className="h-6 hidden lg:block" />

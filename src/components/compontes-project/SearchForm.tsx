@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import logo from '../../assets/logo.svg';
 import { Button } from "../ui/button";
 import { Search, X, Calendar } from 'lucide-react';
+import PWAInstallButton from '../ui/PWAInstallButton';
 
 const SearchForm: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
@@ -87,6 +88,10 @@ const SearchForm: React.FC = () => {
                     <h2 className="text-lg sm:text-xl lg:text-2xl tracking-tight text-slate-600 font-medium">
                         Sistema de Busca Avançada - DOE
                     </h2>
+                    {/* Botão de instalação PWA */}
+                    <div className="mt-4 flex justify-center">
+                        <PWAInstallButton />
+                    </div>
                 </div>
 
                 {/* Search Form Card */}
