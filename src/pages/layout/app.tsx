@@ -2,23 +2,28 @@ import { Header } from "../../components/compontes-project/header"
 import { Outlet } from "react-router-dom"
 
 export function AppLayout() {
-  return (
-    <div className="flex min-h-screen flex-col antialiased">
+    return (
+        <div className="flex min-h-screen flex-col antialiased">
 
-        <Header />
+            <Header />
 
-      <div className="flex flex-1 flex-col gap-4 p-8 pt-6">
+            <div className="flex flex-1 flex-col gap-4 p-8 pt-6">
 
-        <Outlet />
+                <Outlet />
 
-        <footer className="text-sm text-muted-foreground text-center mt-8">
-          Copyright &copy; PGE-PA {new Date().getFullYear()} | DTIGD - Todos os direitos reservados. 
-        </footer>
+                <footer className="w-full text-center p-6">
+                    <div className="inline-flex items-center justify-center space-x-2 backdrop-blur-md bg-white/10 border border-white/20 rounded-full px-6 py-3 shadow-lg">
+                        <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                        <p className="text-sm font-medium text-muted-foreground">
+                            Copyright © PGE-PA {new Date().getFullYear()} | DTIGD - Todos os direitos reservados
+                        </p>
+                    </div>
+                </footer>
 
-      </div>
+            </div>
 
-      
 
-    </div>
-  )
+
+        </div>
+    )
 }

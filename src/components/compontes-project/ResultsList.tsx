@@ -113,69 +113,116 @@ const ResultsList: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-screen">
-                <GridLoader size={16} color="#2870cf" />
+            <div className="flex flex-col justify-center items-center py-20">
+                <GridLoader size={16} color="#3b82f6" />
+                <p className="mt-4 text-slate-600 font-medium">Buscando resultados...</p>
             </div>
         );
     }
 
-    if (error) return <div>{error}</div>;
+    if (error) return (
+        <div className="flex flex-col items-center py-12 text-center">
+            {error}
+        </div>
+    );
+    
     if (!data || data.length === 0) return (
-        <div className='text-xl items-center flex flex-col font-semibold text-justify mt-8 text-muted-foreground'>
-            <p>Não foi encontrado nenhum diário para o(s) filtro(s) selecionado(s).</p>
-            <p>Tente novamente com outros parâmetros.</p>
-            <SearchX className="h-12 w-12 mt-4" />
+        <div className="flex flex-col items-center py-16 text-center space-y-4">
+            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
+                <SearchX className="h-8 w-8 text-slate-400" />
+            </div>
+            <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-slate-700">Nenhum resultado encontrado</h3>
+                <p className="text-slate-500 max-w-md">Não foi encontrado nenhum diário para os filtros selecionados. Tente novamente com outros parâmetros.</p>
+            </div>
         </div>
     );
 
     return (
-        <div className='flex flex-col gap-4'>
-            <h2 className='text-2xl font-bold tracking-tight text-justify mt-4 text-blue-800/80'>Resultados para a busca:</h2>
-            {data.map((doe) => (
-                <Card key={doe.id} className='shadow-md shadow-blue-500/40'>
-                    <CardHeader className="flex-items-center flex-row justify-between space-y-0 pb-4">
-                        <div className="space-y-1">
-                            <CardTitle className="text-base font-medium -tracking-tight text-blue-800/80 dark:text-blue-300">
-                                {doe.nome_arquivo}
-                            </CardTitle>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="space-y-1">
-                        <p className="leading-7 [&:not(:first-child)]:mt-6 text-slate-700">{doe.trecho}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-start gap-2">
-                        <Button asChild size="sm" className="text-blue-800/80 hover:text-blue-800/90 bg-blue-50 hover:bg-blue-100 flex justify-start gap-2 items-center">
-                            <a
-                                href={`http://10.96.30.11:5000${doe.link_arquivo}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <LuEye />
-                                Visualizar DOE
-                            </a>
-                        </Button>
-                    </CardFooter>
-                </Card>
-            ))}
-
-            <Pagination className="bottom-0 dark:bg-transparent py-2 cursor-pointer">
-                <PaginationContent>
-                    {page > 1 && (
-                        <PaginationPrevious size="sm" onClick={() => handlePageChange(page - 1)}>
-                            {page === 2 ? 'Primeira Página' : 'Anterior'}
-                        </PaginationPrevious>
-                    )}
-                    {renderPaginationItems()}
-                    {page < totalPages && (
-                        <PaginationNext size='sm' onClick={() => handlePageChange(page + 1)}>
-                            Próxima
-                        </PaginationNext>
-                    )}
-                </PaginationContent>
-                <div className="text-sm mt-2 text-gray-600">
-                    Página {page} de {totalPages}
+        <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></div>
+                    <h2 className="text-xl font-bold text-slate-800">Resultados da busca</h2>
                 </div>
-            </Pagination>
+                <div className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                    {data.length} resultado{data.length !== 1 ? 's' : ''} encontrado{data.length !== 1 ? 's' : ''}
+                </div>
+            </div>
+            
+            <div className="space-y-4">
+                {data.map((doe, index) => (
+                    <Card key={doe.id} className="group hover:shadow-lg transition-all duration-200 border-slate-200 hover:border-blue-200 bg-white/80 backdrop-blur-sm">
+                        <CardHeader className="pb-3">
+                            <div className="flex items-start justify-between">
+                                <div className="space-y-1 flex-1">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
+                                            #{index + 1 + (page - 1) * limit}
+                                        </span>
+                                    </div>
+                                    <CardTitle className="text-base font-semibold text-slate-800 group-hover:text-blue-700 transition-colors">
+                                        {doe.nome_arquivo}
+                                    </CardTitle>
+                                </div>
+                            </div>
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                            <p className="text-slate-600 leading-relaxed line-clamp-3">
+                                {doe.trecho}
+                            </p>
+                        </CardContent>
+                        <CardFooter className="pt-4 border-t border-slate-100">
+                            <Button 
+                                asChild 
+                                size="sm" 
+                                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
+                            >
+                                <a
+                                    href={`http://10.96.30.11:5000${doe.link_arquivo}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2"
+                                >
+                                    <LuEye className="h-4 w-4" />
+                                    Visualizar DOE
+                                </a>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+
+            {totalPages > 1 && (
+                <div className="mt-8 bg-white/50 rounded-xl p-4 border border-slate-200">
+                    <Pagination className="cursor-pointer">
+                        <PaginationContent>
+                            {page > 1 && (
+                                <PaginationPrevious 
+                                    size="sm" 
+                                    onClick={() => handlePageChange(page - 1)}
+                                    className="hover:bg-blue-50 hover:text-blue-700"
+                                >
+                                    {page === 2 ? 'Primeira' : 'Anterior'}
+                                </PaginationPrevious>
+                            )}
+                            {renderPaginationItems()}
+                            {page < totalPages && (
+                                <PaginationNext 
+                                    size='sm' 
+                                    onClick={() => handlePageChange(page + 1)}
+                                    className="hover:bg-blue-50 hover:text-blue-700"
+                                >
+                                    Próxima
+                                </PaginationNext>
+                            )}
+                        </PaginationContent>
+                    </Pagination>
+                    <div className="text-sm mt-3 text-center text-slate-600">
+                        Página {page} de {totalPages} • {data.length} resultados nesta página
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

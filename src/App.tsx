@@ -25,20 +25,17 @@ const combinedRouter = createHashRouter([
 ]);
 
 export const App  = () => (
-    <div className="min-h-screen bg-blue-100 ">
-
-<HelmetProvider>
-      <Helmet titleTemplate="BuscaDOE | %s" />
-      <Toaster richColors />
-      <ToastContainer />
-      <QueryClientProvider client={queryClient}>
-        {/* Adiciona o SearchProvider ao redor de RouterProvider */}
-        <SearchProvider>
-          <RouterProvider router={combinedRouter} />
-        </SearchProvider>
-      </QueryClientProvider>
-  </HelmetProvider>
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <HelmetProvider>
+        <Helmet titleTemplate="BuscaDOE | %s" />
+        <Toaster richColors />
+        <ToastContainer />
+        <QueryClientProvider client={queryClient}>
+          {/* Adiciona o SearchProvider ao redor de RouterProvider */}
+          <SearchProvider>
+            <RouterProvider router={combinedRouter} />
+          </SearchProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
     </div>
-  
 );
