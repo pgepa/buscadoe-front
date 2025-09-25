@@ -2,29 +2,29 @@
   "name": "BuscaDOE",
   "short_name": "BuscaDOE",
   "description": "Sistema de Busca Avançada do Diário Oficial Eletrônico da Procuradoria-Geral do Estado do Pará",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
-  "scope": "/",
+  "scope": "./",
   "lang": "pt-BR",
   "categories": ["government", "utilities", "productivity"],
   "icons": [
     {
-      "src": "/doe.png",
+      "src": "./android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/doe.png",
+      "src": "./android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/doe.png",
+      "src": "./apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "apple touch icon"

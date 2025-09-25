@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'doe.png'],
+            includeAssets: ['favicon.ico', 'doe.png', 'apple-touch-icon.png', 'android-chrome-192x192.png', 'android-chrome-512x512.png'],
             manifest: {
                 name: 'BuscaDOE',
                 short_name: 'BuscaDOE',
@@ -17,24 +17,24 @@ export default defineConfig({
                 background_color: '#f8fafc',
                 display: 'standalone',
                 orientation: 'portrait',
-                scope: '/',
-                start_url: '/',
+                scope: './',
+                start_url: './',
                 lang: 'pt-BR',
                 icons: [
                     {
-                        src: '/doe.png',
+                        src: './android-chrome-192x192.png',
                         sizes: '192x192',
                         type: 'image/png',
                         purpose: 'maskable any'
                     },
                     {
-                        src: '/doe.png',
+                        src: './android-chrome-512x512.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: 'maskable any'
                     },
                     {
-                        src: '/doe.png',
+                        src: './apple-touch-icon.png',
                         sizes: '180x180',
                         type: 'image/png',
                         purpose: 'apple touch icon'
@@ -67,11 +67,15 @@ export default defineConfig({
                             }
                         }
                     }
-                ]
+                ],
+                skipWaiting: true,
+                clientsClaim: true
             },
             devOptions: {
                 enabled: true
-            }
+            },
+            strategies: 'generateSW',
+            injectRegister: 'auto'
         })
     ],
     resolve: {
