@@ -75,6 +75,11 @@ const SearchForm: React.FC = () => {
     return (
         <>
             <Helmet title="Início" />
+            {/* Botão de instalação PWA - Posição fixa no canto superior direito */}
+            <div className="fixed bottom-4 right-4 z-50">
+                <PWAInstallButton />
+            </div>
+            
             <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
                 {/* Header Section */}
                 <div className="text-center mb-12">
@@ -88,10 +93,6 @@ const SearchForm: React.FC = () => {
                     <h2 className="text-lg sm:text-xl lg:text-2xl tracking-tight text-slate-600 font-medium">
                         Sistema de Busca Avançada - DOE
                     </h2>
-                    {/* Botão de instalação PWA */}
-                    <div className="mt-4 flex justify-center">
-                        <PWAInstallButton />
-                    </div>
                 </div>
 
                 {/* Search Form Card */}

@@ -12,19 +12,19 @@
   "categories": ["government", "utilities", "productivity"],
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/doe.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/doe.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/apple-touch-icon.png",
+      "src": "/doe.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "apple touch icon"

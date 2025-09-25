@@ -8,7 +8,7 @@ export default defineConfig({
         react(),
         VitePWA({
             registerType: 'autoUpdate',
-            includeAssets: ['favicon.ico', 'android-chrome-192x192.png', 'android-chrome-512x512.png', 'apple-touch-icon.png'],
+            includeAssets: ['favicon.ico', 'doe.png'],
             manifest: {
                 name: 'BuscaDOE',
                 short_name: 'BuscaDOE',
@@ -22,19 +22,19 @@ export default defineConfig({
                 lang: 'pt-BR',
                 icons: [
                     {
-                        src: '/android-chrome-192x192.png',
+                        src: '/doe.png',
                         sizes: '192x192',
                         type: 'image/png',
                         purpose: 'maskable any'
                     },
                     {
-                        src: '/android-chrome-512x512.png',
+                        src: '/doe.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: 'maskable any'
                     },
                     {
-                        src: '/apple-touch-icon.png',
+                        src: '/doe.png',
                         sizes: '180x180',
                         type: 'image/png',
                         purpose: 'apple touch icon'
