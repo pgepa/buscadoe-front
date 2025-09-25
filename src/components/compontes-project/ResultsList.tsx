@@ -139,13 +139,13 @@ const ResultsList: React.FC = () => {
     );
 
     return (
-        <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <div className="space-y-4 sm:space-y-6 px-2 sm:px-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                     <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></div>
-                    <h2 className="text-xl font-bold text-slate-800">Resultados da busca</h2>
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-800">Resultados da busca</h2>
                 </div>
-                <div className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                <div className="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full self-start sm:self-auto">
                     {data.length} resultado{data.length !== 1 ? 's' : ''} encontrado{data.length !== 1 ? 's' : ''}
                 </div>
             </div>

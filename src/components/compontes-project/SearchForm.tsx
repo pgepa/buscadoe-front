@@ -80,7 +80,7 @@ const SearchForm: React.FC = () => {
                 <PWAInstallButton />
             </div>
             
-            <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
+            <div className="flex flex-col items-center justify-center min-h-[90vh] sm:min-h-[80vh] px-2 sm:px-4">
                 {/* Header Section */}
                 <div className="text-center mb-12">
                     <div className="relative mb-8">
@@ -96,7 +96,7 @@ const SearchForm: React.FC = () => {
                 </div>
 
                 {/* Search Form Card */}
-                <div className="w-full max-w-5xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8 sm:p-10">
+                <div className="w-full max-w-5xl bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-4 sm:p-8 lg:p-10">
                     <form className="space-y-8">
                         {/* Main Search Section */}
                         <div className="space-y-6">
@@ -111,7 +111,7 @@ const SearchForm: React.FC = () => {
                                             placeholder="Digite os termos que deseja buscar..."
                                             value={localQuery.termo}
                                             onChange={(e) => setLocalQuery({ ...localQuery, termo: e.target.value })}
-                                            className="pl-10 h-12 text-base border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                                            className="pl-10 h-14 sm:h-12 text-base border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
                                         />
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ const SearchForm: React.FC = () => {
                                         placeholder="2025"
                                         value={localQuery.ano}
                                         onChange={(e) => setLocalQuery({ ...localQuery, ano: e.target.value })}
-                                        className="h-12 text-base border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
+                                        className="h-14 sm:h-12 text-base border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl"
                                     />
                                 </div>
                             </div>
@@ -147,7 +147,7 @@ const SearchForm: React.FC = () => {
                                             type="date"
                                             value={localQuery.data_inicio}
                                             onChange={(e) => setLocalQuery({ ...localQuery, data_inicio: e.target.value })}
-                                            className="h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl w-full pl-10 p-4 text-slate-600"
+                                            className="h-14 sm:h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl w-full pl-10 p-4 text-slate-600"
                                         />
                                     </div>
 
@@ -166,7 +166,7 @@ const SearchForm: React.FC = () => {
                                             type="date"
                                             value={localQuery.data_fim}
                                             onChange={(e) => setLocalQuery({ ...localQuery, data_fim: e.target.value })}
-                                            className="h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl w-full pl-10 p-4 text-slate-600"
+                                            className="h-14 sm:h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20 rounded-xl w-full pl-10 p-4 text-slate-600"
                                         />
                                     </div>
                                 </div>
@@ -179,7 +179,7 @@ const SearchForm: React.FC = () => {
                                 onClick={handleSearch}
                                 type="submit"
                                 size="lg"
-                                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-8 py-4 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 h-14 sm:h-auto"
                             >
                                 <Search className="h-5 w-5 mr-2" />
                                 Pesquisar
@@ -190,7 +190,7 @@ const SearchForm: React.FC = () => {
                                 type="button"
                                 variant="outline"
                                 size="lg"
-                                className="w-full sm:w-auto border-slate-300 text-slate-600 hover:bg-slate-50 font-medium px-8 py-3 rounded-xl transition-all duration-200"
+                                className="w-full sm:w-auto border-slate-300 text-slate-600 hover:bg-slate-50 font-medium px-8 py-4 sm:py-3 rounded-xl transition-all duration-200 h-14 sm:h-auto"
                             >
                                 <X className="h-5 w-5 mr-2" />
                                 Limpar filtros
