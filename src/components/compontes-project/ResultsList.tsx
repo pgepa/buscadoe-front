@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { LuDownload } from 'react-icons/lu';
+import { LuDownload, LuEye } from 'react-icons/lu';
 import { api } from '../../lib/axios';
 import { env } from '../../env';
 import {
@@ -135,6 +135,60 @@ const ResultsList: React.FC = () => {
         }
     };
 
+    const handlePdfView = async (event: React.MouseEvent, linkArquivo: string, nomeArquivo: string) => {
+        // Previne qualquer comportamento padrão do evento
+        event.preventDefault();
+        event.stopPropagation();
+        
+        try {
+            const pdfUrl = `${env.VITE_API_URL}${linkArquivo}`;
+            
+            // Verifica se a URL é válida
+            new URL(pdfUrl);
+            
+            // Primeiro, faz uma requisição para garantir que o arquivo existe e está acessível
+            const response = await fetch(pdfUrl, { method: 'HEAD' });
+            
+            if (!response.ok) {
+                throw new Error(`Arquivo não encontrado: ${response.status}`);
+            }
+            
+            // Cria uma URL com parâmetros para evitar cache
+            const urlWithCache = `${pdfUrl}?t=${Date.now()}&v=${Math.random()}`;
+            
+            // Abre em nova aba com configurações específicas
+            const newTab = window.open('', '_blank');
+            
+            if (newTab) {
+                // Define o conteúdo da nova aba
+                newTab.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>${nomeArquivo}</title>
+                        <style>
+                            body { margin: 0; padding: 0; }
+                            iframe { width: 100%; height: 100vh; border: none; }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${urlWithCache}" type="application/pdf"></iframe>
+                    </body>
+                    </html>
+                `);
+                newTab.document.close();
+            } else {
+                // Fallback se popup for bloqueado
+                window.open(urlWithCache, '_blank', 'noopener,noreferrer');
+            }
+            
+            console.log(`PDF aberto para visualização: ${nomeArquivo}`);
+        } catch (error) {
+            console.error('Erro ao abrir PDF:', error);
+            alert('Erro ao abrir o arquivo PDF para visualização. Verifique sua conexão e tente novamente.');
+        }
+    };
+
     const renderPaginationItems = () => {
         const items = [];
         const startPage = Math.max(page - 2, 1);
@@ -219,14 +273,23 @@ const ResultsList: React.FC = () => {
                             </p>
                         </CardContent>
                         <CardFooter className="pt-4 border-t border-slate-100">
-                            <Button 
-                                onClick={(event) => handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo)}
-                                size="sm" 
-                                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
-                            >
-                                <LuDownload className="h-4 w-4" />
-                                Download DOE
-                            </Button>
+                            <div className="flex flex-col sm:flex-row gap-3 w-full">
+                                <Button 
+                                    onClick={(event) => handlePdfView(event, doe.link_arquivo, doe.nome_arquivo)}
+                                    className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
+                                >
+                                    <LuEye className="h-4 w-4 mr-2" />
+                                    Visualizar
+                                </Button>
+                                <Button 
+                                    onClick={(event) => handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo)}
+                                    variant="outline"
+                                    className="w-full sm:w-auto border-blue-600 text-blue-600 hover:bg-blue-50 font-medium px-6 py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center"
+                                >
+                                    <LuDownload className="h-4 w-4 mr-2" />
+                                    Download
+                                </Button>
+                            </div>
                         </CardFooter>
                     </Card>
                 ))}
