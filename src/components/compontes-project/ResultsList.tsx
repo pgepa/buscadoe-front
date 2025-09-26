@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { LuDownload, LuEye, LuX, LuMaximize2, LuMinimize2 } from 'react-icons/lu';
+import { LuDownload } from 'react-icons/lu';
 import { api } from '../../lib/axios';
 import { env } from '../../env';
 import {
@@ -35,17 +35,6 @@ const ResultsList: React.FC = () => {
     const [page, setPage] = useState<number>(1);
     const [limit] = useState<number>(25);
     const [totalPages, setTotalPages] = useState<number>(1);
-    const [pdfViewer, setPdfViewer] = useState<{
-        isOpen: boolean;
-        pdfUrl: string;
-        fileName: string;
-        isFullscreen: boolean;
-    }>({
-        isOpen: false,
-        pdfUrl: '',
-        fileName: '',
-        isFullscreen: false
-    });
 
     useEffect(() => {
         if (query) {
@@ -146,47 +135,6 @@ const ResultsList: React.FC = () => {
         }
     };
 
-    const handlePdfView = (event: React.MouseEvent, linkArquivo: string, nomeArquivo: string) => {
-        event.preventDefault();
-        event.stopPropagation();
-        
-        try {
-            const pdfUrl = `${env.VITE_API_URL}${linkArquivo}`;
-            
-            // Verifica se a URL é válida
-            new URL(pdfUrl);
-            
-            // Abre o visualizador integrado
-            setPdfViewer({
-                isOpen: true,
-                pdfUrl: pdfUrl,
-                fileName: nomeArquivo,
-                isFullscreen: false
-            });
-            
-            console.log(`PDF aberto no visualizador: ${nomeArquivo}`);
-            
-        } catch (error) {
-            console.error('Erro ao abrir PDF:', error);
-            alert('Erro ao abrir o arquivo PDF. Verifique o link e tente novamente.');
-        }
-    };
-
-    const closePdfViewer = () => {
-        setPdfViewer({
-            isOpen: false,
-            pdfUrl: '',
-            fileName: '',
-            isFullscreen: false
-        });
-    };
-
-    const toggleFullscreen = () => {
-        setPdfViewer(prev => ({
-            ...prev,
-            isFullscreen: !prev.isFullscreen
-        }));
-    };
 
     const renderPaginationItems = () => {
         const items = [];
@@ -272,35 +220,20 @@ const ResultsList: React.FC = () => {
                             </p>
                         </CardContent>
                         <CardFooter className="pt-4 border-t border-slate-100">
-                            <div className="flex flex-col sm:flex-row gap-3 w-full">
-                                <Button 
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        handlePdfView(event, doe.link_arquivo, doe.nome_arquivo);
-                                        return false;
-                                    }}
-                                    type="button"
-                                    className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
-                                >
-                                    <LuEye className="h-4 w-4 mr-2" />
-                                    Visualizar
-                                </Button>
-                                <Button 
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo);
-                                        return false;
-                                    }}
-                                    type="button"
-                                    variant="outline"
-                                    className="w-full sm:w-auto border-blue-600 text-blue-600 hover:bg-blue-50 font-medium px-6 py-2.5 rounded-lg transition-all duration-200 flex items-center justify-center"
-                                >
-                                    <LuDownload className="h-4 w-4 mr-2" />
-                                    Download
-                                </Button>
-                            </div>
+                            <Button 
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo);
+                                    return false;
+                                }}
+                                type="button"
+                                size="sm"
+                                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
+                            >
+                                <LuDownload className="h-4 w-4 mr-2" />
+                                Download DOE
+                            </Button>
                         </CardFooter>
                     </Card>
                 ))}
@@ -333,86 +266,6 @@ const ResultsList: React.FC = () => {
                     </Pagination>
                     <div className="text-sm mt-3 text-center text-slate-600">
                         Página {page} de {totalPages} • {data.length} resultados nesta página
-                    </div>
-                </div>
-            )}
-
-            {/* Visualizador de PDF Integrado */}
-            {pdfViewer.isOpen && (
-                <div className={`fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4 ${pdfViewer.isFullscreen ? 'p-0' : ''}`}>
-                    <div className={`bg-white rounded-lg shadow-2xl flex flex-col ${pdfViewer.isFullscreen ? 'w-full h-full rounded-none' : 'w-full max-w-6xl h-[90vh]'}`}>
-                        {/* Header do Visualizador */}
-                        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50 rounded-t-lg">
-                            <div className="flex items-center space-x-3">
-                                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span className="text-sm font-medium text-gray-700 ml-4 truncate max-w-md">
-                                    {pdfViewer.fileName}
-                                </span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Button
-                                    onClick={toggleFullscreen}
-                                    variant="ghost"
-                                    size="sm"
-                                    className="text-gray-600 hover:text-gray-800 hover:bg-gray-200"
-                                >
-                                    {pdfViewer.isFullscreen ? (
-                                        <LuMinimize2 className="h-4 w-4" />
-                                    ) : (
-                                        <LuMaximize2 className="h-4 w-4" />
-                                    )}
-                                </Button>
-                                <Button
-                                    onClick={closePdfViewer}
-                                    variant="ghost"
-                                    size="sm"
-                                    className="text-gray-600 hover:text-gray-800 hover:bg-gray-200"
-                                >
-                                    <LuX className="h-4 w-4" />
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Conteúdo do PDF */}
-                        <div className="flex-1 relative bg-gray-100">
-                            <iframe
-                                src={`${pdfViewer.pdfUrl}#toolbar=1&navpanes=1&scrollbar=1&page=1&view=FitH`}
-                                className="w-full h-full border-none"
-                                title={pdfViewer.fileName}
-                                onLoad={() => console.log('PDF carregado no visualizador')}
-                            />
-                            
-                            {/* Fallback se o PDF não carregar */}
-                            <div className="absolute inset-0 flex items-center justify-center bg-white" style={{ zIndex: -1 }}>
-                                <div className="text-center p-8">
-                                    <div className="text-gray-400 mb-4">
-                                        <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-medium text-gray-900 mb-2">Carregando PDF...</h3>
-                                    <p className="text-gray-600">Aguarde enquanto o arquivo é carregado.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Footer com ações */}
-                        <div className="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
-                            <div className="flex justify-between items-center">
-                                <span className="text-sm text-gray-600">
-                                    Visualizando: {pdfViewer.fileName}
-                                </span>
-                                <Button
-                                    onClick={closePdfViewer}
-                                    size="sm"
-                                    className="bg-gray-600 hover:bg-gray-700 text-white"
-                                >
-                                    Fechar
-                                </Button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             )}
