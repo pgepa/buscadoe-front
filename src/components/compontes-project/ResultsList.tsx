@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { LuDownload } from 'react-icons/lu';
+import { LuDownload, LuExternalLink } from 'react-icons/lu';
 import { api } from '../../lib/axios';
 import { env } from '../../env';
 import {
@@ -135,6 +135,21 @@ const ResultsList: React.FC = () => {
         }
     };
 
+    const handlePdfView = (linkArquivo: string) => {
+        try {
+            const pdfUrl = `${env.VITE_API_URL}${linkArquivo}`;
+            
+            console.log(`Abrindo PDF: ${pdfUrl}`);
+            
+            // Método mais direto possível
+            window.open(pdfUrl, '_blank');
+            
+        } catch (error) {
+            console.error('Erro ao abrir PDF:', error);
+            alert('Erro ao abrir o arquivo PDF. Verifique se o arquivo existe e tente novamente.');
+        }
+    };
+
 
     const renderPaginationItems = () => {
         const items = [];
@@ -220,20 +235,32 @@ const ResultsList: React.FC = () => {
                             </p>
                         </CardContent>
                         <CardFooter className="pt-4 border-t border-slate-100">
-                            <Button 
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    event.stopPropagation();
-                                    handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo);
-                                    return false;
-                                }}
-                                type="button"
-                                size="sm"
-                                className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center"
-                            >
-                                <LuDownload className="h-4 w-4 mr-2" />
-                                Download DOE
-                            </Button>
+                            <div className="flex flex-col sm:flex-row gap-2 w-full">
+                                <Button 
+                                    onClick={() => handlePdfView(doe.link_arquivo)}
+                                    type="button"
+                                    size="sm"
+                                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                                >
+                                    <LuExternalLink className="h-4 w-4 mr-2" />
+                                    Visualizar PDF
+                                </Button>
+                                <Button 
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo);
+                                        return false;
+                                    }}
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    className="flex-1 sm:flex-none border-blue-200 text-blue-600 hover:bg-blue-50 hover:border-blue-300 font-medium px-4 py-2 rounded-lg transition-all duration-200 flex items-center justify-center"
+                                >
+                                    <LuDownload className="h-4 w-4 mr-2" />
+                                    Download DOE
+                                </Button>
+                            </div>
                         </CardFooter>
                     </Card>
                 ))}

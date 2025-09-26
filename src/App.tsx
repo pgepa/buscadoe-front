@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import { SearchProvider } from '../src/Context/SearchContext';
 import SearchPage from './pages/app/SearchPage';
 import ResultsPage from './pages/app/ResultsPage'
-import PWAStatus from './components/ui/PWAStatus';
 import "react-toastify/dist/ReactToastify.css";
 import { createHashRouter } from "react-router-dom";
 
@@ -34,7 +33,6 @@ export const App  = () => (
         <QueryClientProvider client={queryClient}>
           <SearchProvider>
             <RouterProvider router={combinedRouter} />
-            <PWAStatus />
           </SearchProvider>
         </QueryClientProvider>
       </HelmetProvider>

@@ -6,7 +6,6 @@ import { Input } from "../ui/input";
 import logo from '../../assets/logo.svg';
 import { Button } from "../ui/button";
 import { Search, X, Calendar } from 'lucide-react';
-import PWAInstallButton from '../ui/PWAInstallButton';
 
 const SearchForm: React.FC = () => {
     const { query, setQuery } = useContext(SearchContext)!;
@@ -75,10 +74,6 @@ const SearchForm: React.FC = () => {
     return (
         <>
             <Helmet title="Início" />
-            {/* Botão de instalação PWA - Posição fixa no canto superior direito */}
-            <div className="fixed bottom-4 right-4 z-50">
-                <PWAInstallButton />
-            </div>
             
             <div className="flex flex-col items-center justify-center min-h-[90vh] sm:min-h-[80vh] px-2 sm:px-4">
                 {/* Header Section */}
