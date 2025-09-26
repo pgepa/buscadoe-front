@@ -179,7 +179,7 @@ const ResultsList: React.FC = () => {
                                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
                             >
                                 <a
-                                    href={`http://10.96.0.11:5000${doe.link_arquivo}`}
+                                    href={`https://buscadoe.pge.pa.gov.br/:5000${doe.link_arquivo}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2"
