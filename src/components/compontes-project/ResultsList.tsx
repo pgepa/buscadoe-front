@@ -3,6 +3,7 @@ import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { LuEye } from 'react-icons/lu';
 import { api } from '../../lib/axios';
+import { env } from '../../env';
 import {
     Pagination,
     PaginationContent,
@@ -86,6 +87,45 @@ const ResultsList: React.FC = () => {
     const handlePageChange = (newPage: number) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setPage(newPage);
+        }
+    };
+
+    const handlePdfClick = (event: React.MouseEvent, linkArquivo: string, nomeArquivo: string) => {
+        // Previne qualquer comportamento padrão do evento
+        event.preventDefault();
+        event.stopPropagation();
+        
+        try {
+            const pdfUrl = `${env.VITE_API_URL}${linkArquivo}`;
+            
+            // Verifica se a URL é válida antes de tentar abrir
+            new URL(pdfUrl);
+            
+            // Abre o PDF em uma nova aba com configurações específicas
+            const newWindow = window.open(
+                pdfUrl, 
+                '_blank', 
+                'noopener,noreferrer,width=1024,height=768,scrollbars=yes,resizable=yes'
+            );
+            
+            // Verifica se a janela foi aberta com sucesso
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                console.error('Popup bloqueado ou erro ao abrir o PDF');
+                // Fallback: cria um link temporário para download
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.download = nomeArquivo;
+                
+                // Adiciona temporariamente ao DOM, clica e remove
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        } catch (error) {
+            console.error('Erro ao abrir PDF:', error);
+            alert('Erro ao abrir o arquivo PDF. Verifique se o link está correto.');
         }
     };
 
@@ -174,19 +214,12 @@ const ResultsList: React.FC = () => {
                         </CardContent>
                         <CardFooter className="pt-4 border-t border-slate-100">
                             <Button 
-                                asChild 
+                                onClick={(event) => handlePdfClick(event, doe.link_arquivo, doe.nome_arquivo)}
                                 size="sm" 
-                                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200"
+                                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
                             >
-                                <a
-                                    href={`https://buscadoe.pge.pa.gov.br/api${doe.link_arquivo}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2"
-                                >
-                                    <LuEye className="h-4 w-4" />
-                                    Visualizar DOE
-                                </a>
+                                <LuEye className="h-4 w-4" />
+                                Visualizar DOE
                             </Button>
                         </CardFooter>
                     </Card>
