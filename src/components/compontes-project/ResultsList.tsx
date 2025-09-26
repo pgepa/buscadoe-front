@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SearchContext } from '../../Context/SearchContext';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { LuEye } from 'react-icons/lu';
+import { LuDownload } from 'react-icons/lu';
 import { api } from '../../lib/axios';
 import { env } from '../../env';
 import {
@@ -90,7 +90,7 @@ const ResultsList: React.FC = () => {
         }
     };
 
-    const handlePdfClick = (event: React.MouseEvent, linkArquivo: string, nomeArquivo: string) => {
+    const handlePdfDownload = async (event: React.MouseEvent, linkArquivo: string, nomeArquivo: string) => {
         // Previne qualquer comportamento padrão do evento
         event.preventDefault();
         event.stopPropagation();
@@ -98,34 +98,40 @@ const ResultsList: React.FC = () => {
         try {
             const pdfUrl = `${env.VITE_API_URL}${linkArquivo}`;
             
-            // Verifica se a URL é válida antes de tentar abrir
+            // Verifica se a URL é válida antes de tentar fazer o download
             new URL(pdfUrl);
             
-            // Abre o PDF em uma nova aba com configurações específicas
-            const newWindow = window.open(
-                pdfUrl, 
-                '_blank', 
-                'noopener,noreferrer,width=1024,height=768,scrollbars=yes,resizable=yes'
-            );
+            // Faz o download usando fetch para ter controle total
+            const response = await fetch(pdfUrl);
             
-            // Verifica se a janela foi aberta com sucesso
-            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                console.error('Popup bloqueado ou erro ao abrir o PDF');
-                // Fallback: cria um link temporário para download
-                const link = document.createElement('a');
-                link.href = pdfUrl;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.download = nomeArquivo;
-                
-                // Adiciona temporariamente ao DOM, clica e remove
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
             }
+            
+            // Converte a resposta em blob
+            const blob = await response.blob();
+            
+            // Cria uma URL temporária para o blob
+            const blobUrl = window.URL.createObjectURL(blob);
+            
+            // Cria um link temporário para download
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = nomeArquivo || 'documento.pdf';
+            link.style.display = 'none';
+            
+            // Adiciona ao DOM, clica e remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Limpa a URL temporária do blob
+            window.URL.revokeObjectURL(blobUrl);
+            
+            console.log(`Download concluído: ${nomeArquivo}`);
         } catch (error) {
-            console.error('Erro ao abrir PDF:', error);
-            alert('Erro ao abrir o arquivo PDF. Verifique se o link está correto.');
+            console.error('Erro ao fazer download do PDF:', error);
+            alert('Erro ao fazer download do arquivo PDF. Verifique sua conexão e tente novamente.');
         }
     };
 
@@ -214,12 +220,12 @@ const ResultsList: React.FC = () => {
                         </CardContent>
                         <CardFooter className="pt-4 border-t border-slate-100">
                             <Button 
-                                onClick={(event) => handlePdfClick(event, doe.link_arquivo, doe.nome_arquivo)}
+                                onClick={(event) => handlePdfDownload(event, doe.link_arquivo, doe.nome_arquivo)}
                                 size="sm" 
                                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2"
                             >
-                                <LuEye className="h-4 w-4" />
-                                Visualizar DOE
+                                <LuDownload className="h-4 w-4" />
+                                Download DOE
                             </Button>
                         </CardFooter>
                     </Card>
