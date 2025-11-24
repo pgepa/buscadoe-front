@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileSearch, Home, Menu } from "lucide-react";
+import { FileSearch, Home, Menu, Info } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { NavLink } from "react-router-dom";
 
@@ -43,6 +43,12 @@ export function Header() {
                         <div className='flex flex-row justify-center items-center gap-2 font-semibold  hover:text-indigo-300'>
                             <Home className="h-5 w-5" />
                             Início
+                        </div>
+                    </NavLink>
+                    <NavLink to="/sobre" onClick={closeMenu}>
+                        <div className='flex flex-row justify-center items-center gap-2 font-semibold  hover:text-indigo-300'>
+                            <Info className="h-5 w-5" />
+                            Sobre
                         </div>
                     </NavLink>
                 </nav>

@@ -85,9 +85,15 @@ const SearchForm: React.FC = () => {
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-slate-800 via-blue-800 to-indigo-800 bg-clip-text text-transparent">
                         Procuradoria-Geral do Estado do Pará
                     </h1>
-                    <h2 className="text-lg sm:text-xl lg:text-2xl tracking-tight text-slate-600 font-medium">
+                    <h2 className="text-lg sm:text-xl lg:text-2xl tracking-tight text-slate-600 font-medium mb-3">
                         Sistema de Busca Avançada - DOE
                     </h2>
+                    <p className="text-sm sm:text-base text-slate-500 max-w-3xl mx-auto leading-relaxed">
+                        Acervo Histórico do Diário Oficial (IOEPA) - Pesquise publicações oficiais do Estado do Pará a partir 1951. 
+                        <span className="block mt-1 text-xs sm:text-sm text-slate-400 italic">
+                            Nota: O acervo é atualizado diariamente com as edições até o dia anterior (D-1).
+                        </span>
+                    </p>
                 </div>
 
                 {/* Search Form Card */}
