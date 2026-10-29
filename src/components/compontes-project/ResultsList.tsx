@@ -12,7 +12,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "../../components/ui/pagination";
-import GridLoader from 'react-spinners/GridLoader';
+import { GridLoader } from 'react-spinners';
 import { SearchX } from 'lucide-react';
 import { Button } from '../ui/button';
 
